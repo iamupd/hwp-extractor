@@ -1,5 +1,11 @@
 # hwp-extractor
 
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Format](https://img.shields.io/badge/지원포맷-.hwp%20%7C%20.hwpx-blue)
+![Dependencies](https://img.shields.io/badge/의존성-없음-brightgreen)
+![Claude Skill](https://img.shields.io/badge/Claude-Cowork%20Skill-blueviolet?logo=anthropic&logoColor=white)
+
 > Claude Cowork 스킬 — HWP/HWPX 파일을 마크다운으로 변환
 
 한컴오피스 문서 포맷인 `.hwp`(바이너리 OLE)와 `.hwpx`(ZIP+XML)에서 텍스트를 추출하여 마크다운으로 변환하는 Claude 스킬입니다. **별도 라이브러리 설치 없이 표준 Python만 사용합니다.**
@@ -22,7 +28,7 @@
 Claude에게 자연어로 요청하면 자동으로 스킬이 실행됩니다:
 
 ```
-"01.검토자료.hwp 마크다운으로 뽑아줘"
+"01. RICS 개선방향.hwp 마크다운으로 뽑아줘"
 "docs 폴더 hwp 파일 전부 변환해줘"
 "이 hwpx 파일 내용 읽어줘"
 ```
@@ -107,5 +113,7 @@ libreoffice --headless --convert-to txt:Text 문서.hwpx
 ---
 
 ## 라이선스
+
+![License](https://img.shields.io/badge/License-MIT-green)
 
 MIT
