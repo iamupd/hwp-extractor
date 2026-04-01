@@ -174,7 +174,7 @@ libreoffice --headless --convert-to txt:Text 문서.hwpx
 
 ## 관련 프로젝트
 
-- [claude-law-skill](https://github.com/iamupd/claude-law-skill) — 한국 법령 조회·검색·개정 감지 플러그인
+- [law-search](https://github.com/iamupd/law-search) — 한국 법령 조회·검색·개정 감지 플러그인
 
 ---
 
