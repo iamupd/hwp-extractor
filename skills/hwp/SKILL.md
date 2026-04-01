@@ -1,11 +1,13 @@
 ---
-name: hwp-extractor
+name: hwp
 description: >
   HWP 및 HWPX 파일(한컴오피스 문서)에서 텍스트를 추출해 마크다운으로 변환하는 스킬.
   사용자가 .hwp 또는 .hwpx 파일을 언급하거나, 한컴 문서를 읽거나 변환하거나 내용을 뽑아달라고
   할 때 반드시 이 스킬을 사용할 것. "hwp 열어줘", "hwpx 마크다운으로", "한글 파일 내용 추출",
   "hwp 텍스트 뽑아줘", 디렉토리 내 문서 일괄 변환 요청 등이 모두 해당됨.
   단일 파일 및 폴더 내 일괄 변환 모두 지원.
+argument-hint: "<파일경로 또는 디렉토리> [-o 출력파일]"
+allowed-tools: "Bash(python *), Bash(python3 *), Read, Write, Glob"
 ---
 
 # HWP / HWPX 텍스트 추출 스킬
@@ -42,17 +44,17 @@ description: >
 
 **단일 파일 변환 (stdout 출력):**
 ```bash
-python <skill_dir>/scripts/hwp_to_markdown.py "파일.hwp"
+python ${CLAUDE_SKILL_DIR}/scripts/hwp_to_markdown.py "파일.hwp"
 ```
 
 **단일 파일 → .md 저장:**
 ```bash
-python <skill_dir>/scripts/hwp_to_markdown.py "파일.hwp" -o "출력.md"
+python ${CLAUDE_SKILL_DIR}/scripts/hwp_to_markdown.py "파일.hwp" -o "출력.md"
 ```
 
 **디렉토리 일괄 변환 (자동으로 markdown/ 서브폴더 생성):**
 ```bash
-python <skill_dir>/scripts/hwp_to_markdown.py "/경로/폴더/"
+python ${CLAUDE_SKILL_DIR}/scripts/hwp_to_markdown.py "/경로/폴더/"
 ```
 
 ### 3단계: 결과 조합
@@ -103,7 +105,7 @@ Python 코드에서 임포트하여 사용할 수도 있습니다:
 
 ```python
 import sys
-sys.path.insert(0, '<skill_dir>/scripts')
+sys.path.insert(0, '${CLAUDE_SKILL_DIR}/scripts')
 
 from hwp_extract import extract_hwp
 from hwpx_extract import extract_hwpx

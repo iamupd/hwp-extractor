@@ -1,0 +1,10 @@
+{
+  "name": "hwp",
+  "description": "한컴오피스 HWP/HWPX 문서 텍스트 추출 및 마크다운 변환 (표·단락·글머리 구조 보존, 의존성 없음)",
+  "version": "2.0.0",
+  "author": {
+    "name": "iamupd"
+  },
+  "repository": "https://github.com/iamupd/hwp-extractor",
+  "license": "MIT"
+}

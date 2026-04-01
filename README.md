@@ -1,23 +1,40 @@
 # hwp-extractor
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Claude Skill](https://img.shields.io/badge/Claude-Cowork%20Skill-blueviolet?logo=anthropic&logoColor=white)
+![Plugin](https://img.shields.io/badge/Claude-Plugin-blue?logo=anthropic&logoColor=white)
 ![Format](https://img.shields.io/badge/지원포맷-.hwp%20%7C%20.hwpx-blue)
 ![Dependencies](https://img.shields.io/badge/의존성-없음-brightgreen)
-![Claude Skill](https://img.shields.io/badge/Claude-Cowork%20Skill-blueviolet?logo=anthropic&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-> Claude Cowork 스킬 — HWP/HWPX 파일을 마크다운으로 변환
+> Claude Code 플러그인 — HWP/HWPX 파일을 마크다운으로 변환
 
-한컴오피스 문서 포맷인 `.hwp`(바이너리 OLE)와 `.hwpx`(ZIP+XML)에서 텍스트를 추출하여 마크다운으로 변환하는 Claude 스킬입니다. **별도 라이브러리 설치 없이 표준 Python만 사용합니다.**
+한컴오피스 문서 포맷인 `.hwp`(바이너리 OLE)와 `.hwpx`(ZIP+XML)에서 텍스트를 추출하여 마크다운으로 변환하는 Claude Code 플러그인입니다. **별도 라이브러리 설치 없이 표준 Python만 사용합니다.**
 
 ---
 
 ## 설치
 
-1. [Releases](../../releases) 에서 `hwp-extractor.skill` 다운로드
-2. Claude 데스크탑 앱에서 "Save skill" 클릭
+### 방법 1: 플러그인으로 설치 (권장)
 
-또는 이 저장소를 클론하면 스크립트를 직접 사용할 수 있습니다.
+```bash
+git clone https://github.com/iamupd/hwp-extractor.git
+claude --plugin-dir ./hwp-extractor
+```
+
+### 방법 2: 스킬 파일만 복사
+
+```bash
+mkdir -p .claude/skills/hwp
+cp -r hwp-extractor/skills/hwp/* .claude/skills/hwp/
+```
+
+### 방법 3: 스크립트만 직접 사용
+
+```bash
+git clone https://github.com/iamupd/hwp-extractor.git
+python hwp-extractor/skills/hwp/scripts/hwp_to_markdown.py "문서.hwp"
+```
 
 ---
 
@@ -28,7 +45,7 @@
 Claude에게 자연어로 요청하면 자동으로 스킬이 실행됩니다:
 
 ```
-"01. RICS 개선방향.hwp 마크다운으로 뽑아줘"
+"RICS 개선방향.hwp 마크다운으로 뽑아줘"
 "docs 폴더 hwp 파일 전부 변환해줘"
 "이 hwpx 파일 내용 읽어줘"
 ```
@@ -50,7 +67,7 @@ python scripts/hwp_to_markdown.py "/경로/폴더/"
 
 ```python
 import sys
-sys.path.insert(0, 'scripts/')
+sys.path.insert(0, 'skills/hwp/scripts')
 
 from hwp_extract import extract_hwp
 from hwpx_extract import extract_hwpx
@@ -62,16 +79,48 @@ print(markdown)
 
 ---
 
+## 출력 예시
+
+**입력:** `RICS 개선방향.hwp`
+
+```markdown
+# 실시간 종합건설정보 시스템(RICS) 개선방향
+
+> 출처: RICS 개선방향.hwp
+
+---
+
+**실시간 종합건설정보 시스템(RICS) 개선방향**
+
+## 1. 현황 및 문제점
+
+- 전국 320여개의 건설공사 현황, 현장별 안전 정보 등을 실시간으로 확인할 수 있는
+  종합건설정보(RICS) 시스템을 구축
+
+## 2. 개선방향
+
+### 시스템 기능 고도화
+
+- 과거 데이터를 축적 및 비교분석 할 수 있는 기능 도입
+```
+
+---
+
 ## 구조
 
 ```
 hwp-extractor/
-├── SKILL.md                    # Claude 스킬 정의 (트리거 조건 + 사용 지침)
-├── scripts/
-│   ├── hwp_to_markdown.py      # 통합 CLI (자동 감지 + 일괄 변환)
-│   ├── hwp_extract.py          # HWP 바이너리(OLE CFB) 파서
-│   └── hwpx_extract.py         # HWPX(ZIP+XML) 파서
-└── references/                 # (예비)
+├── .claude-plugin/
+│   └── plugin.json                 # 플러그인 매니페스트
+├── skills/
+│   └── hwp/
+│       ├── SKILL.md                # 스킬 정의 (트리거 조건 + 사용 지침)
+│       └── scripts/
+│           ├── hwp_to_markdown.py  # 통합 CLI (자동 감지 + 일괄 변환)
+│           ├── hwp_extract.py      # HWP 바이너리(OLE CFB) 파서
+│           └── hwpx_extract.py     # HWPX(ZIP+XML) 파서
+├── README.md                       # 이 문서
+└── LICENSE                         # MIT
 ```
 
 ---
@@ -96,6 +145,17 @@ hwp-extractor/
 
 ---
 
+## 지원 플랫폼
+
+| 플랫폼 | 지원 |
+|--------|:----:|
+| Claude Code CLI | O |
+| Claude Code Desktop (Mac/Windows) | O |
+| Claude Code Web (claude.ai/code) | O |
+| Claude Code IDE Extensions (VS Code, JetBrains) | O |
+
+---
+
 ## 한계
 
 HWP/HWPX 포맷 특성상 아래 내용은 추출되지 않을 수 있습니다:
@@ -109,6 +169,12 @@ HWP/HWPX 포맷 특성상 아래 내용은 추출되지 않을 수 있습니다:
 ```bash
 libreoffice --headless --convert-to txt:Text 문서.hwpx
 ```
+
+---
+
+## 관련 프로젝트
+
+- [claude-law-skill](https://github.com/iamupd/claude-law-skill) — 한국 법령 조회·검색·개정 감지 플러그인
 
 ---
 
